@@ -104,16 +104,26 @@
             height: 20px;
         }
 
-        .privacy-link {
+        .footer-links {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .footer-link {
             font-size: 14px;
             color: #6c757d;
             text-decoration: none;
             transition: color 0.2s ease;
         }
 
-        .privacy-link:hover {
+        .footer-link:hover {
             color: #1a1a1a;
             text-decoration: underline;
+        }
+
+        .footer-links .separator {
+            color: #dee2e6;
         }
 
         .carousel-container {
@@ -274,7 +284,11 @@
                 </svg>
                 Download for Apple TV
             </a>
-            <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+            <div class="footer-links">
+                <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                <span class="separator">•</span>
+                <a href="copyright.html" class="footer-link">Copyright</a>
+            </div>
         </div>
 
         <div class="carousel-container">

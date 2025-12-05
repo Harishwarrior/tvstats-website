@@ -13,9 +13,10 @@ This is a static marketing website for TVStats, an Apple TV system monitoring ap
 **Pages:**
 - `index.html` - Main landing page with carousel
 - `privacy-policy.html` - Privacy policy page emphasizing offline operation and no data collection
+- `copyright.html` - Copyright and licensing information
 
 **Key components (index.html):**
-- **Content section** (left): Logo, tagline, description, download button, and privacy policy link
+- **Content section** (left): Logo, tagline, description, download button, and footer links (Privacy Policy, Copyright)
 - **Carousel section** (right): Auto-rotating image carousel displaying app screenshots
 - **Screenshots**: Located in `screenshots/` directory with naming convention `light_1.png`, `light_2.png`, `light_3.png`, `dark_1.png`, `dark_2.png`, `dark_3.png`
 
