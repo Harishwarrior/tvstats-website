@@ -8,10 +8,14 @@ This is a static marketing website for TVStats, an Apple TV system monitoring ap
 
 ## Architecture
 
-**Single-page static site** - The entire website is contained in `index.html` with no build process or dependencies. It's a self-contained HTML file with inline CSS and JavaScript.
+**Static site** - Two HTML pages (`index.html` and `privacy-policy.html`) with no build process or dependencies. Self-contained HTML files with inline CSS and JavaScript.
 
-**Key components:**
-- **Content section** (left): Logo, tagline, description, and download button
+**Pages:**
+- `index.html` - Main landing page with carousel
+- `privacy-policy.html` - Privacy policy page emphasizing offline operation and no data collection
+
+**Key components (index.html):**
+- **Content section** (left): Logo, tagline, description, download button, and privacy policy link
 - **Carousel section** (right): Auto-rotating image carousel displaying app screenshots
 - **Screenshots**: Located in `screenshots/` directory with naming convention `light_1.png`, `light_2.png`, `light_3.png`, `dark_1.png`, `dark_2.png`, `dark_3.png`
 
