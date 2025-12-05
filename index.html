@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVStats - Apple TV System Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            padding: 0 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 28px;
+            font-weight: 300;
+            color: #2c3e50;
+            line-height: 1.4;
+            max-width: 500px;
+        }
+
+        .description {
+            font-size: 16px;
+            font-weight: 400;
+            color: #6c757d;
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #000000 0%, #2c2c2c 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            width: fit-content;
+            mask-image: paint(smooth-corners);
+            -webkit-mask-image: -webkit-radial-gradient(white, white);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .download-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            justify-self: center;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-dot.active {
+            background: white;
+            width: 32px;
+            border-radius: 5px;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            line-height: 1;
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        .carousel-controls-hidden .carousel-arrow,
+        .carousel-controls-hidden .carousel-nav {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .carousel-arrow:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-arrow.prev {
+            left: 12px;
+        }
+
+        .carousel-arrow.next {
+            right: 12px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                padding: 40px;
+            }
+
+            .content {
+                text-align: center;
+                align-items: center;
+            }
+
+            .carousel-container {
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px;
+                gap: 32px;
+            }
+
+            .logo {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 22px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .download-btn {
+                padding: 14px 32px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="logo">TVStats</div>
+            <div class="tagline">Monitor your Apple TV system performance</div>
+            <div class="description">
+                Keep track of your Apple TV's system health with real-time CPU usage, memory statistics,
+                and performance metrics. Beautiful visualizations make monitoring your device effortless.
+            </div>
+            <a href="#" class="download-btn">
+                <svg class="download-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                Download for Apple TV
+            </a>
+        </div>
+
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="screenshots/light_1.png" alt="TVStats Screenshot 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/light_2.png" alt="TVStats Screenshot 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/light_3.png" alt="TVStats Screenshot 3">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/dark_1.png" alt="TVStats Screenshot 4">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/dark_2.png" alt="TVStats Screenshot 5">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/dark_3.png" alt="TVStats Screenshot 6">
+                    </div>
+                </div>
+                <button class="carousel-arrow prev" aria-label="Previous slide">‹</button>
+                <button class="carousel-arrow next" aria-label="Next slide">›</button>
+                <div class="carousel-nav"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const navContainer = document.querySelector('.carousel-nav');
+        const prevButton = document.querySelector('.carousel-arrow.prev');
+        const nextButton = document.querySelector('.carousel-arrow.next');
+        const carousel = document.querySelector('.carousel');
+
+        let currentSlide = 0;
+        const slideCount = slides.length;
+        let hideControlsTimeout;
+
+        // Create navigation dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            navContainer.appendChild(dot);
+        });
+
+        const dots = Array.from(navContainer.children);
+
+        function updateSlide() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            updateSlide();
+        }
+
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+
+        // Auto-advance carousel
+        setInterval(nextSlide, 4000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                showControls();
+            }
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+                showControls();
+            }
+        });
+
+        // Auto-hide controls
+        function hideControls() {
+            carousel.classList.add('carousel-controls-hidden');
+        }
+
+        function showControls() {
+            carousel.classList.remove('carousel-controls-hidden');
+            clearTimeout(hideControlsTimeout);
+            hideControlsTimeout = setTimeout(hideControls, 3000);
+        }
+
+        // Show controls on mouse movement
+        carousel.addEventListener('mouseenter', showControls);
+        carousel.addEventListener('mousemove', showControls);
+
+        // Initial hide after 3 seconds
+        hideControlsTimeout = setTimeout(hideControls, 3000);
+    </script>
+</body>
+</html>
