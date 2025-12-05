@@ -69,39 +69,33 @@
             max-width: 480px;
         }
 
-        .download-btn {
-            display: inline-flex;
+        .download-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
-            padding: 18px 40px;
-            background: linear-gradient(135deg, #000000 0%, #2c2c2c 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
+        }
+
+        .download-btn {
+            display: inline-block;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            width: fit-content;
-            mask-image: paint(smooth-corners);
-            -webkit-mask-image: -webkit-radial-gradient(white, white);
+        }
+
+        .download-btn img {
+            height: 60px;
+            width: auto;
+            display: block;
         }
 
         .download-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+            opacity: 0.9;
         }
 
         .download-btn:active {
             transform: translateY(0);
-        }
-
-        .download-icon {
-            width: 20px;
-            height: 20px;
         }
 
         .footer-links {
@@ -278,12 +272,14 @@
                 Keep track of your Apple TV's system health with real-time CPU usage, memory statistics,
                 and performance metrics. Beautiful visualizations make monitoring your device effortless.
             </div>
-            <a href="#" class="download-btn">
-                <svg class="download-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-                Download for Apple TV
-            </a>
+            <div class="download-buttons">
+                <a href="https://apps.apple.com/app/id6756169120" class="download-btn">
+                    <img src="assets/appstore_download.svg" alt="Download on the App Store">
+                </a>
+                <a href="https://testflight.apple.com/join/scmv5Mj2" class="download-btn">
+                    <img src="assets/testflight_download.svg" alt="Download on TestFlight">
+                </a>
+            </div>
             <div class="footer-links">
                 <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
                 <span class="separator">•</span>
