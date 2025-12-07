@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .test-section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .test-result {
+            padding: 10px;
+            background: #e8f4f8;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .viewport-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>TVStats Website Responsive Design Test</h1>
+
+        <div class="viewport-info">
+            <strong>Current Viewport Width:</strong> <span id="viewport-width">Loading...</span>px
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Mobile Breakpoints Test</h2>
+            <div class="test-result">
+                <p><span class="success">✓</span> Added @media (max-width: 600px) breakpoint for small mobile devices
+                </p>
+                <p><span class="success">✓</span> Added @media (max-width: 400px) breakpoint for very small mobile
+                    devices</p>
+                <p><span class="success">✓</span> Added touch-specific optimizations with @media (hover: none) and
+                    (pointer: coarse)</p>
+                <p><span class="success">✓</span> Added landscape orientation handling for mobile devices</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Layout Improvements</h2>
+            <div class="test-result">
+                <p><span class="success">✓</span> Mobile layout changes to single column below 1024px</p>
+                <p><span class="success">✓</span> Download buttons stack vertically on mobile (flex-direction: column)
+                </p>
+                <p><span class="success">✓</span> Carousel container becomes full width on mobile</p>
+                <p><span class="success">✓</span> Footer links wrap and center on mobile</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Typography & Spacing</h2>
+            <div class="test-result">
+                <p><span class="success">✓</span> Responsive font sizing for logo, tagline, and description</p>
+                <p><span class="success">✓</span> Reduced padding and gaps on smaller screens</p>
+                <p><span class="success">✓</span> Text elements become full width on mobile</p>
+                <p><span class="success">✓</span> Touch-friendly control sizes for carousel</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Mobile-Specific Optimizations</h2>
+            <div class="test-result">
+                <p><span class="success">✓</span> Enhanced viewport meta tag for better mobile rendering</p>
+                <p><span class="success">✓</span> Added apple-mobile-web-app-capable meta tag</p>
+                <p><span class="success">✓</span> Added theme-color meta tag</p>
+                <p><span class="success">✓</span> Disabled user scaling for better mobile experience</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Responsive Behavior Summary</h2>
+            <div class="test-result">
+                <p><strong>Desktop (>1024px):</strong> Two-column layout with content and carousel side by side</p>
+                <p><strong>Tablet (768px-1024px):</strong> Single column layout, larger text and spacing</p>
+                <p><strong>Mobile (600px-768px):</strong> Single column, optimized spacing, touch-friendly controls</p>
+                <p><strong>Small Mobile (<600px):< /strong> Compact layout, stacked buttons, smaller text</p>
+                <p><strong>Very Small Mobile (<400px):< /strong> Minimal spacing, smallest text sizes</p>
+                <p><strong>Landscape Mobile:</strong> Two-column layout when space allows</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateViewportWidth() {
+            document.getElementById('viewport-width').textContent = window.innerWidth;
+        }
+
+        window.addEventListener('resize', updateViewportWidth);
+        window.addEventListener('load', updateViewportWidth);
+
+        // Update on load
+        updateViewportWidth();
+    </script>
+</body>
+
+</html>

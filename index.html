@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>TVStats - Apple TV System Monitor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,9 +75,10 @@
 
         .download-buttons {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
             align-items: center;
+            justify-content: flex-start;
         }
 
         .download-btn {
@@ -261,8 +266,134 @@
                 font-size: 16px;
             }
         }
+
+        @media (max-width: 600px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .container {
+                padding: 12px;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+
+            .tagline {
+                font-size: 18px;
+                max-width: 100%;
+            }
+
+            .description {
+                font-size: 14px;
+                max-width: 100%;
+            }
+
+            .download-buttons {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .download-btn img {
+                height: 50px;
+                width: auto;
+            }
+
+            .carousel-container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+
+            .carousel-dot {
+                width: 12px;
+                height: 12px;
+            }
+
+            .carousel-dot.active {
+                width: 36px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .footer-link {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 12px;
+                gap: 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            .download-btn img {
+                height: 45px;
+            }
+
+            .carousel-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+        }
+
+        /* Mobile touch optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .carousel-arrow {
+                width: 44px;
+                height: 44px;
+            }
+
+            .carousel-dot {
+                width: 14px;
+                height: 14px;
+            }
+
+            .carousel-dot.active {
+                width: 40px;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .carousel-container {
+                max-width: 400px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="content">
@@ -364,8 +495,10 @@
         nextButton.addEventListener('click', nextSlide);
         prevButton.addEventListener('click', prevSlide);
 
-        // Auto-advance carousel
-        setInterval(nextSlide, 4000);
+        // Auto-advance carousel (slower on mobile)
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const autoAdvanceInterval = isMobile ? 6000 : 4000;
+        setInterval(nextSlide, autoAdvanceInterval);
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -394,8 +527,38 @@
         carousel.addEventListener('mouseenter', showControls);
         carousel.addEventListener('mousemove', showControls);
 
+        // Touch support for mobile
+        carousel.addEventListener('touchstart', showControls);
+        carousel.addEventListener('touchmove', showControls);
+
+        // Swipe gestures for carousel navigation
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            showControls();
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum pixels to consider as swipe
+            const swipeDistance = touchStartX - touchEndX;
+
+            if (swipeDistance > swipeThreshold) {
+                nextSlide(); // Swipe left - next slide
+            } else if (swipeDistance < -swipeThreshold) {
+                prevSlide(); // Swipe right - previous slide
+            }
+        }
+
         // Initial hide after 3 seconds
         hideControlsTimeout = setTimeout(hideControls, 3000);
     </script>
 </body>
+
 </html>
