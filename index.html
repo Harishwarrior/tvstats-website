@@ -20,8 +20,9 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            min-height: 100svh;
+            /* Small viewport height - excludes browser UI */
             background: #ffffff;
             display: flex;
             align-items: center;
@@ -269,8 +270,7 @@
 
         @media (max-width: 600px) {
             body {
-                overflow: auto;
-                height: auto;
+                min-height: auto;
             }
 
             .container {
@@ -431,16 +431,25 @@
                         <img src="screenshots/appstore_light_3.png" alt="TVStats Screenshot 3">
                     </div>
                     <div class="carousel-slide">
-                        <img src="screenshots/appstore_dark_1.png" alt="TVStats Screenshot 4">
+                        <img src="screenshots/appstore_light_4.png" alt="TVStats Screenshot 4">
                     </div>
                     <div class="carousel-slide">
-                        <img src="screenshots/appstore_dark_2.png" alt="TVStats Screenshot 5">
+                        <img src="screenshots/appstore_light_5.png" alt="TVStats Screenshot 5">
                     </div>
                     <div class="carousel-slide">
-                        <img src="screenshots/appstore_dark_3.png" alt="TVStats Screenshot 6">
+                        <img src="screenshots/appstore_dark_1.png" alt="TVStats Screenshot 6">
                     </div>
                     <div class="carousel-slide">
-                        <img src="screenshots/appstore_dark_4.png" alt="TVStats Screenshot 7">
+                        <img src="screenshots/appstore_dark_2.png" alt="TVStats Screenshot 7">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/appstore_dark_3.png" alt="TVStats Screenshot 8">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/appstore_dark_4.png" alt="TVStats Screenshot 9">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="screenshots/appstore_dark_5.png" alt="TVStats Screenshot 10">
                     </div>
                 </div>
                 <button class="carousel-arrow prev" aria-label="Previous slide">‹</button>
